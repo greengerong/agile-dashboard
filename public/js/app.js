@@ -1,5 +1,9 @@
 
-var app = angular.module("dashboardApp",[]);
+var app = angular.module("dashboardApp",[])
+	.factory("underscore",["$window",function($window){
+		return $window._;
+	}]);
+	
  function dashboardCtr($scope){
 
  }
