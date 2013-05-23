@@ -9,6 +9,7 @@ exports.index = function(req, res){
 
 exports.config = function(req, res){
 	fs.readFile("./config/client-config.json",function(err,text){
+		res.setHeader("Content-Type", "text/javascript");
        res.send("window.dashboardConfig = " + text +";");
    });
 };
