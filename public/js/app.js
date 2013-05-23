@@ -6,7 +6,9 @@ var app = angular.module("dashboardApp",[])
 		return {
 			get: function(url,success,error){
 				$http.get($window.dashboardConfig.proxy + "?url=" + url).
-				success(success).error(error);
+				success(success).error(function(){
+					console.log(arguments);
+				});
 			}
 		};
 	}]);

@@ -1,5 +1,5 @@
 <div class="box well">
-    <h4>{{vm.name}} ( version : {{vm.version}} )<span
+    <h4><a href="https://github.com/greengerong/green-monitor" target="_blank">green-monitor<a>:{{vm.name}}(version:{{vm.version}})<span
             ng-class="{'alert-success':!getFailedCount(),'alert-error':getFailedCount()}"
             style="float:right;padding:4px;">failed : {{getFailedCount()}} services</span>
     </h4>

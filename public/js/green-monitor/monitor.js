@@ -5,34 +5,66 @@ app.filter("status", function () {
     })
 	.filter("timeParser",function () {
 	        return function (time) {
-	            var minutes = Math.floor(time / ( 60 * 1000));
-	            var divisor_for_seconds = time % ( 60 * 1000);
-	            var seconds = Math.floor(divisor_for_seconds / (1000));
-	            var divisor_for_mseconds = divisor_for_seconds % 1000;
-	            var mseconds = Math.ceil(divisor_for_mseconds);
+	        	if(time){
+		            var minutes = Math.floor(time / ( 60 * 1000));
+		            var divisor_for_seconds = time % ( 60 * 1000);
+		            var seconds = Math.floor(divisor_for_seconds / (1000));
+		            var divisor_for_mseconds = divisor_for_seconds % 1000;
+		            var mseconds = Math.ceil(divisor_for_mseconds);
 
-	            return minutes + "min:" + seconds + "s:" + mseconds + "ms";
+		            return minutes + "min:" + seconds + "s:" + mseconds + "ms";
+	            }
+                return  0 + "min:" + 0 + "s:" + 0 + "ms";
+
 	        };
 	    })
-	.directive('greenMonitor', ["$filter",function($filter) {
+	.directive('greenMonitor', ["proxy","$timeout",function(proxy,$timeout) {
 	  var directiveDefinitionObject = {
 	    priority: 0,
 	    templateUrl: '/html/green-monitor/monitor.html',
 	    replace: true,
 	    transclude: false,
 	    restrict: 'A',
-	    scope: false,
+	    scope: true,
 	    controller: function($scope, $element, $attrs, $transclude) { 
-	      $scope.vm = {name :"test 1",version:"1.0", items:[{name : "item1", result:{time:100,success:false}},
-	         {name : "item2", result:{time:10023,success:true}}]};
-	       console.log("controller",$scope);
+	      // $scope.vm = {name :"test 1",version:"1.0", items:[{name : "item1", result:{time:100,success:false}},
+	      //    {name : "item2", result:{time:10023,success:true}}]};
+	       console.log("controller",$scope.dashboardConfig);
+	       var config = $scope.dashboardConfig.greenMonitor;
+
 	       $scope.getFailedCount = function () {
                 if ($scope.vm && $scope.vm.items) {
-                    return $filter('filter')($scope.vm.items, {"result.success": false}).length;
+                	var len = $scope.vm.items.length;
+                	for(var item in $scope.vm.items){
+                        if(item.success === true){
+                        	len--;
+                        }
+                    }
+                    return len;
                 }
 
                 return 0;
             };
+            
+            var getStatus = function (){
+        		 angular.forEach($scope.vm.items, function (item) {
+		            proxy.get(config.host + "/monitor/" + item.id,function (data) {
+                        $timeout(function () {
+                            item.result = data;                          
+                        });
+
+                    });
+	        	});
+            };
+
+            proxy.get(config.host + "/monitor/config",function(data){
+            	$timeout(function () {
+                    $scope.vm = data;
+                    getStatus();
+                });
+            });
+ 		    
+ 		   
 	     },
 	    link: function (scope, iElement, iAttrs) { 
 	      console.log("link",arguments);
