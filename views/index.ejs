@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %>(version:<%= version%>)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='/css/bootstrap.min.css' />
+    <link rel='stylesheet' href='/css/bootstrap-responsive.min.css' />
+    <link rel='stylesheet' href='/css/style.css' />
+    <!--[if lt IE 9]>
+    <script src="/js/jshtml5shiv"></script>
+    <![endif]-->
+
+    <!--[if lte IE 8]>
+    <script type="text/javascript">
+        document.createElement('ng-include');
+        document.createElement('ng-pluralize');
+        document.createElement('ng-view');
+        // Optionally these for CSS
+        document.createElement('ng:include');
+        document.createElement('ng:pluralize');
+        document.createElement('ng:view');
+    </script>
+
+    <![endif]-->
+  </head>
+<body id="ng-app" ng-app="dashboardApp">
+
+  <div ng-controller="dashboardCtr" class="container">
+    <h2><%= title %>(version:<%= version%>)</h2>
+    
+  </div>
+<footer class="footer">
+    <div class="container">
+        <p>This project was contributed by [<a href="https://github.com/greengerong"
+                                               target="_blank">green gerong</a>,[xxx],[xxx]] and project host on github [<a
+                href="https://github.com/greengerong/green-monitor" target="_blank">agile-dashboard</a>].If you want you
+            can change anything. I hope i can get your notify , but it up to you. </p>
+    </div>
+</footer>
+
+	 <script type="text/javascript" src="/js/3plib/jquery-1.9.1.js"></script>
+	 <script type="text/javascript" src="/js/3plib/angular.js"></script>
+	 <script type="text/javascript" src="/js/3plib/underscore.js"></script>
+	 <script type="text/javascript" src="/js/app.js"></script>
+  </body>
+</html>
