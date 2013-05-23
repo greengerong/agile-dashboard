@@ -1,3 +1,4 @@
 {
+	"proxy":"/proxy/get",
 	"sonarUrl":"http://nemo.sonarsource.org/api/resources"
 }
