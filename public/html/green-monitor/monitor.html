@@ -1,11 +1,11 @@
-<div class="box well">
-    <h4><a href="https://github.com/greengerong/green-monitor" target="_blank">green-monitor<a>:{{vm.name}}(version:{{vm.version}})<span
+<div class="box well" style="min-width:400px;">
+    <h4>{{vm.name}}(version:{{vm.version}})<span
             ng-class="{'alert-success':!getFailedCount(),'alert-error':getFailedCount()}"
             style="float:right;padding:4px;">failed : {{getFailedCount()}} services</span>
     </h4>
     <hr/>
 
-    <div ng-class="{'alert-error':!item.result.success,'box':true,'alert-success':item.result.success}" ng-repeat="item in vm.items" style="margin-bottom:1px;">
+    <div ng-class="{'alert-error':!item.result.success,'box':true,'alert-success':item.result.success}" ng-repeat="item in vm.items" style="margin-bottom:1px;padding-left:10px;">
         <div class="row-fluid">
             <div class="span7"><h4>{{item.name}}</h4> </div>
             <div class="span5"><span style="float:right;padding:4px;">{{item.result.success | status}}({{item.result.time | timeParser}})</span></div>
