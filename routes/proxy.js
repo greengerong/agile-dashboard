@@ -1,4 +1,11 @@
 
+var $ = require('jquery');
+
 exports.get = function(req, res){
-  res.send("respond with a resource");
+	var url = req.query["url"];
+   
+   $.get(url,function(data){
+   		res.send(data);
+     });
+  
 };
