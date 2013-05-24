@@ -17,7 +17,12 @@
         "jira"
     ],
     "contributors":[
-
+        "grzx2210@163.com <green gerong>",
+        "<yqsqq>",
+        "<kolyjjj>",
+        "<raoxunrong>",
+        "<ymeng-think >",
+        "<tingxiang >"
     ],
     "scripts":{
         "start":"node app.js"
