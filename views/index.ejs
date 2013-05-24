@@ -2,27 +2,7 @@
 <html>
   <head>
     <title><%= title %>(version:<%= version%>)</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel='stylesheet' href='/css/bootstrap.min.css' />
-    <link rel='stylesheet' href='/css/bootstrap-responsive.min.css' />
-    <link rel='stylesheet' href='/css/style.css' />
-    <link rel='stylesheet' href='/css/dashboard.css' />
-
-    <!--[if lt IE 9]>
-    <script src="/js/jshtml5shiv"></script>
-    <![endif]-->
-
-    <!--[if lte IE 8]>
-    <script type="text/javascript">
-        document.createElement('ng-include');
-        document.createElement('ng-pluralize');
-        document.createElement('ng-view');
-        // Optionally these for CSS
-        document.createElement('ng:include');
-        document.createElement('ng:pluralize');
-        document.createElement('ng:view');
-    </script>
-    <![endif]-->
+  <%- include head.ejs %>
   </head>
 <body id="ng-app" ng-app="dashboardApp">
 
@@ -53,16 +33,7 @@
     </div>
 </footer>
 
-   	<script type="text/javascript" src="/config"></script>
-	<script type="text/javascript" src="/js/3plib/jquery-1.9.1.js"></script>
-	<script type="text/javascript" src="/js/3plib/angular.js"></script>
-	<script type="text/javascript" src="/js/3plib/underscore.js"></script>
-	<script type="text/javascript" src="/js/app.js"></script>
-   	<script type="text/javascript" src="/js/green-monitor/monitor.js"></script>
-    <script type="text/javascript" src="/js/sonar/sonar.js"></script>
-    <script type="text/javascript" src="/js/panels/dashboard.js"></script>
-    <script type="text/javascript" src="/js/panels/panel.js"></script>
-    <script type="text/javascript" src="/js/panels/sample-monitor.js"></script>
-   	<script type="text/javascript" src="/js/sonar/sonar.js"></script>
+<%- include script.ejs %>
+
   </body>
 </html>
