@@ -2,4 +2,5 @@ pids
 logs
 results
 test/output/
+.idea/
 npm-debug.log
