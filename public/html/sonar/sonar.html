@@ -1,8 +1,10 @@
-<section class="box well" style="min-width:400px;">
-	<div>
-		<h2>Sonar</h2>
+<div class="sonar well" >
+    <h2>{{description}}</h2>
+	<div ng-repeat="metric in metrics">
+			<h2>{{metric.name}}</h2> <p>{{metric.percentage}}</p>
 	</div>
+
 	<div>
 		<h2>Violations</h2>
 	</div>
-</section>
+</div>
