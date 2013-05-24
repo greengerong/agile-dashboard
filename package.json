@@ -1,18 +1,40 @@
 {
-  "name": "application-name",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "start": "node app.js"
-  },
-  "dependencies": {
-    "express": "3.2.5",
-    "ejs": "*"
-  },
-  "devDependencies": {
-  "karma": "*"
-},
-"scripts": {
-   "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
-}
+    "name":"agile-dashboard",
+    "version":"0.0.1",
+    "private":false,
+    "description":"Agile projct status dashboard.",
+    "homepage":"https://github.com/greengerong/agile-dashboard.git",
+    "bugs":{
+        "url":"https://github.com/greengerong/agile-dashboard/issues"
+    },
+    "keywords":[
+        "dashboard",
+        "agile",
+        "ci",
+        "jenkins",
+        "green-monitor",
+        "sonar",
+        "jira"
+    ],
+    "contributors":[
+
+    ],
+    "scripts":{
+        "start":"node app.js"
+    },
+    "dependencies":{
+        "express":"3.2.5",
+        "ejs":"*"
+    },
+    "devDependencies":{
+        "karma":"*"
+    },
+    "scripts":{
+        "test":"./node_modules/.bin/karma start --single-run --browsers PhantomJS"
+    },
+    "repository":{
+        "type":"git",
+        "url":"git@github.com:greengerong/agile-dashboard.git"
+    },
+    "main":"node app.js"
 }
