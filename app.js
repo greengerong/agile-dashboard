@@ -1,9 +1,8 @@
-
 var express = require('express')
-  , routes = require('./routes')
-  , proxy = require('./routes/proxy')
-  , http = require('http')
-  , path = require('path');
+    , routes = require('./routes')
+    , proxy = require('./routes/proxy')
+    , http = require('http')
+    , path = require('path');
 
 var app = express();
 
@@ -20,13 +19,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
 if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
+    app.use(express.errorHandler());
 }
 
 app.get('/', routes.index);
 app.get('/proxy/get', proxy.get);
 app.get('/config', routes.config);
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+http.createServer(app).listen(app.get('port'), function () {
+    console.log('Express server listening on port ' + app.get('port'));
 });
