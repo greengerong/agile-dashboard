@@ -7,7 +7,6 @@ app.directive('dashboard', function() {
 	    restrict: 'A',
 	    scope: true,
 	    controller: function($scope, $element, $attrs, $transclude) {
-			console.log("in dashboard")
 		}
 	};
 });
