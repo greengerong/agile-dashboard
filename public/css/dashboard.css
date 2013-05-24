@@ -1,0 +1,11 @@
+.dashboard .monitor {
+    float: left;
+    margin: 0;
+}
+
+.monitor {
+    background: greenyellow;
+    border: solid 1px blue;
+    height: 100px;
+    width: 30%;
+}
