@@ -1,18 +1,12 @@
 
 var http = require('http'), url = require("url");;
-const DEFAULT_TIMEOUT = 1000 * 60;
 
 exports.get = function(req, res){
 	
-	 console.log(req.headers,"123");
 	 var params = url.parse(req.url, true).query;
-      
+
+     var path = '';
 	 var requestURL = url.parse(params.url);
-	  if (path == '') {
-	    path = '/';
-	  }
-      
-      var path = '';
 
 	  if (requestURL.pathname) {
 	    path += requestURL.pathname;
@@ -29,29 +23,43 @@ exports.get = function(req, res){
 	  }
 
 	  var accept = req.headers["accept"] || "*/*";
-	  var client = http.createClient(port, requestURL.hostname);
-	  var request = client.request("GET", path, {
-	    Host : requestURL.hostname,
-	    'Accept' : accept,
-	    'User-Agent' : 'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT5.0)',
-	    'Accept-Language' : 'en-us',
-	    'Accept-Charset' : 'utf-8;q=0.7,*;q=0.7'
-	  });
+      console.log('http://nemo.sonarsource.org/api/resources');
+	  var options = {
+	  	  Host : requestURL.hostname,
+		  hostname: requestURL.hostname,
+		  port: port,
+		  path: path,
+		  method: 'GET',
+		  headers: {
+		  	'Accept' : accept,
+		    'User-Agent' : 'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT5.0)',
+		    'Accept-Language' : 'en-us',
+	        'Accept-Charset' : 'utf-8;q=0.7,*;q=0.7'
+			}
+		};
 
-	  request.addListener('response', function(response) {
+      var request = http.request(options, function(response) {
 	    var body = '';
+	    console.log('STATUS: ' + response.statusCode);
+	    console.log('HEADERS: ' + JSON.stringify(response.headers));
+	    response.setEncoding('utf8');
 
-	    response.setEncoding("utf8");
-
-	    response.addListener("data", function(chunk) {
-	      body += chunk;
+		response.on('data', function (chunk) {
+	    	console.log('BODY: ' + chunk);
+	    	body += chunk;
 	    });
 
-	    response.addListener('end', function() {
-	       res.send(body);
+	    response.on('end', function(){
+	    	res.send(body);
 	    });
-	  });
 
+	    response.on('error', function(eror){
+	    	console.log(eror);
+	    });
+	});
+
+    request.on('error', function(e) {
+        console.log('problem with request: ' + e.message);
+    });
   	 request.end();
-  
 };
