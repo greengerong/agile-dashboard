@@ -1,41 +1,41 @@
 app.filter("status", function () {
-        return function (status) {
-            return status ? "Passed" : "Failed";
+    return function (status) {
+        return status ? "Passed" : "Failed";
+    };
+})
+    .filter("timeParser", function () {
+        return function (time) {
+            if (time) {
+                var minutes = Math.floor(time / ( 60 * 1000));
+                var divisor_for_seconds = time % ( 60 * 1000);
+                var seconds = Math.floor(divisor_for_seconds / (1000));
+                var divisor_for_mseconds = divisor_for_seconds % 1000;
+                var mseconds = Math.ceil(divisor_for_mseconds);
+
+                return minutes + "min:" + seconds + "s:" + mseconds + "ms";
+            }
+            return  0 + "min:" + 0 + "s:" + 0 + "ms";
+
         };
     })
-	.filter("timeParser",function () {
-	        return function (time) {
-	        	if(time){
-		            var minutes = Math.floor(time / ( 60 * 1000));
-		            var divisor_for_seconds = time % ( 60 * 1000);
-		            var seconds = Math.floor(divisor_for_seconds / (1000));
-		            var divisor_for_mseconds = divisor_for_seconds % 1000;
-		            var mseconds = Math.ceil(divisor_for_mseconds);
+    .directive('greenMonitor', ["proxy", "$timeout", "timer", function (proxy, $timeout, timer) {
+    var directiveDefinitionObject = {
+        priority:0,
+        templateUrl:'/html/green-monitor/monitor.html',
+        replace:true,
+        transclude:false,
+        restrict:'EA',
+        scope:true,
+        controller:function ($scope) {
 
-		            return minutes + "min:" + seconds + "s:" + mseconds + "ms";
-	            }
-                return  0 + "min:" + 0 + "s:" + 0 + "ms";
+            var config = $scope.dashboardConfig.greenMonitor;
 
-	        };
-	    })
-	.directive('greenMonitor', ["proxy","$timeout",function(proxy,$timeout) {
-	  var directiveDefinitionObject = {
-	    priority: 0,
-	    templateUrl: '/html/green-monitor/monitor.html',
-	    replace: true,
-	    transclude: false,
-	    restrict: 'EA',
-	    scope: true,
-	    controller: function($scope, $element, $attrs, $transclude) { 
-	      
-	       var config = $scope.dashboardConfig.greenMonitor;
-
-	       $scope.getFailedCount = function () {
+            $scope.getFailedCount = function () {
                 if ($scope.vm && $scope.vm.items) {
-                	var len = $scope.vm.items.length;
-                	for(var item in $scope.vm.items){
-                        if(item.success === true){
-                        	len--;
+                    var len = $scope.vm.items.length;
+                    for (var item in $scope.vm.items) {
+                        if (item.success === true) {
+                            len--;
                         }
                     }
                     return len;
@@ -43,27 +43,27 @@ app.filter("status", function () {
 
                 return 0;
             };
-            
-            var getStatus = function (){
-        		 angular.forEach($scope.vm.items, function (item) {
-		            proxy.get(config.host + "/monitor/" + item.id,function (data) {
+
+            var getStatus = function () {
+                angular.forEach($scope.vm.items, function (item) {
+                    proxy.get(config.host + "/monitor/" + item.id, function (data) {
                         $timeout(function () {
-                            item.result = data;                          
+                            item.result = data;
                         });
 
                     });
-	        	});
+                });
             };
 
-            proxy.get(config.host + "/monitor/config",function(data){
-            	$timeout(function () {
+            proxy.get(config.host + "/monitor/config", function (data) {
+                $timeout(function () {
                     $scope.vm = data;
-                    getStatus();
+                    timer.start(getStatus);
                 });
             });
- 		    
- 		   
-	     }
-	  };
-	  return directiveDefinitionObject;
-	}]);
+
+
+        }
+    };
+    return directiveDefinitionObject;
+}]);

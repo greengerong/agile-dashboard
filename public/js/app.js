@@ -34,6 +34,13 @@ var app = angular.module("dashboardApp", [])
                 });
         }
     };
+}]).factory("timer", ["$window", function ($window) {
+    return {
+        start:function (callback) {
+            callback();
+            $window.setInterval(callback, $window.dashboardConfig.timer || 1000);
+        }
+    };
 }]);
 
 function dashboardCtr($scope, $window) {
