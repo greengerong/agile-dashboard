@@ -7,7 +7,10 @@ app.directive('panel', function() {
         restrict: 'A',
         scope: true,
         controller: function($scope, $element, $attrs, $transclude) {
-
+            var allMonitors = $element.children();
+            angular.forEach(allMonitors, function(monitor){
+                $(monitor).addClass("span6");
+            });
         }
     };
 });
