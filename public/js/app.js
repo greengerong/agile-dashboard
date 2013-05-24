@@ -5,8 +5,9 @@ var app = angular.module("dashboardApp",[])
 	}]).factory("proxy",["$http","$window",function($http,$window){
 		return {
 			get: function(url,success,error){
-				$http.get($window.dashboardConfig.proxy + "?url=" + url).
+				$http.get($window.dashboardConfig.proxy + "?url=" + escape(url)).
 				success(success).error(function(){
+					console.log("error");
 				});
 			}
 		};
