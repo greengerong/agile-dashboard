@@ -24,7 +24,7 @@ app.filter("status", function () {
 	    templateUrl: '/html/green-monitor/monitor.html',
 	    replace: true,
 	    transclude: false,
-	    restrict: 'A',
+	    restrict: 'EA',
 	    scope: true,
 	    controller: function($scope, $element, $attrs, $transclude) { 
 	      
