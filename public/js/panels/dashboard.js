@@ -4,7 +4,7 @@ app.directive('dashboard', function() {
 	    templateUrl: '/html/panels/dashboard.html',
 	    replace: true,
 	    transclude: true,
-	    restrict: 'EA',
+	    restrict: 'A',
 	    scope: true,
 	    controller: function($scope, $element, $attrs, $transclude) {
 			console.log("in dashboard")

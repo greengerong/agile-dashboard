@@ -1,13 +1,13 @@
-app.directive('sample', function() {
+app.directive('panel', function() {
     return {
-        priority: 0,
-        template: '<div class="monitor"></div>',
+        priority: 900,
+        templateUrl: '/html/panels/panel.html',
         replace: true,
         transclude: true,
-        restrict: 'EA',
+        restrict: 'A',
         scope: true,
         controller: function($scope, $element, $attrs, $transclude) {
-
+            console.log("in panel")
         }
     };
 });
