@@ -10,7 +10,7 @@ var app = angular.module("dashboardApp", [])
             show:function (title, type) {
                 var $container = $("." + messageBoxContainer);
                 if ($container.length < 1) {
-                    var $container = $("<div class='" + messageBoxContainer + "'></div>").prependTo(document.body);
+                    var $container = $("<div class='" + messageBoxContainer + "' style='position:fixed;width:100%;'></div>").prependTo(document.body);
                 }
                 $container.html('<div class="box alert alert-block ' + messageBoxColor[type] + '">' +
                     '<button class="close" type="button">×</button>' +
