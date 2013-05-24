@@ -1,9 +1,7 @@
-var app = app || angular.module('dashboardApp', []);
-
-app.directive('sonar', ['proxy', function(){
+app.directive("sonar", ["proxy", function(proxy){
 	return {
 		priority: 0,
-		template: '/html/sonar/sonar.html',
+		templateUrl: '/html/sonar/sonar.html',
 		replace: true,
 		transclude: false,
 		restrict: 'A',
@@ -14,7 +12,7 @@ app.directive('sonar', ['proxy', function(){
 		compile: function compile(tElement, tAttrs, transclude){
 			return {
 				pre: function preLink(scope, iElement, iAttrs, controller){},
-				post: function postLink(scope, iElement, iAttrs, controller)	
+				post: function postLink(scope, iElement, iAttrs, controller){}	
 			};
 		},
 		link: function postLink(scope, iElement, iAttrs){}
