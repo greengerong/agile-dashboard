@@ -6,6 +6,8 @@
     <link rel='stylesheet' href='/css/bootstrap.min.css' />
     <link rel='stylesheet' href='/css/bootstrap-responsive.min.css' />
     <link rel='stylesheet' href='/css/style.css' />
+    <link rel='stylesheet' href='/css/dashboard.css' />
+
     <!--[if lt IE 9]>
     <script src="/js/jshtml5shiv"></script>
     <![endif]-->
@@ -20,7 +22,6 @@
         document.createElement('ng:pluralize');
         document.createElement('ng:view');
     </script>
-
     <![endif]-->
   </head>
 <body id="ng-app" ng-app="dashboardApp">
@@ -30,7 +31,11 @@
     client config : {{dashboardConfig}}
   
     <div green-monitor=""></div>
-	<dashboard></dashboard>
+	<dashboard>
+        <sample></sample>
+        <sample></sample>
+	</dashboard>
+
 
   </div>
 <footer class="footer">
@@ -49,5 +54,6 @@
 	<script type="text/javascript" src="/js/app.js"></script>
    	<script type="text/javascript" src="/js/green-monitor/monitor.js"></script>
    	<script type="text/javascript" src="/js/panels/dashboard.js"></script>
+   	<script type="text/javascript" src="/js/panels/sample-monitor.js"></script>
   </body>
 </html>

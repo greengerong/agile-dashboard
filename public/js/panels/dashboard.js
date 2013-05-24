@@ -1,6 +1,6 @@
 app.directive('dashboard', function() {
 	return {
-	    priority: 0,
+	    priority: 1000,
 	    templateUrl: '/html/panels/dashboard.html',
 	    replace: true,
 	    transclude: true,
