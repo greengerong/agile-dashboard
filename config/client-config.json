@@ -1,8 +1,8 @@
 {
 	"proxy":"/proxy/get",
+	"timer":5000,
 	"sonarUrl":"http://nemo.sonarsource.org/api/resources",
 	"greenMonitor":{
-		"host":"http://127.0.0.1:8080",
-		"timer":5000
+		"host":"http://127.0.0.1:8080"
 	}
 }

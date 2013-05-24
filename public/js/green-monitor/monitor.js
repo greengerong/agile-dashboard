@@ -27,9 +27,7 @@ app.filter("status", function () {
 	    restrict: 'A',
 	    scope: true,
 	    controller: function($scope, $element, $attrs, $transclude) { 
-	      // $scope.vm = {name :"test 1",version:"1.0", items:[{name : "item1", result:{time:100,success:false}},
-	      //    {name : "item2", result:{time:10023,success:true}}]};
-	       console.log("controller",$scope.dashboardConfig);
+	      
 	       var config = $scope.dashboardConfig.greenMonitor;
 
 	       $scope.getFailedCount = function () {
@@ -65,10 +63,7 @@ app.filter("status", function () {
             });
  		    
  		   
-	     },
-	    link: function (scope, iElement, iAttrs) { 
-	      console.log("link",arguments);
-	    }
+	     }
 	  };
 	  return directiveDefinitionObject;
 	}]);
