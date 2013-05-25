@@ -41,5 +41,11 @@
         "type":"git",
         "url":"git@github.com:greengerong/agile-dashboard.git"
     },
-    "main":"node app.js"
+    "main":"node app.js",
+    "bin":{
+        "dashboard":"app.js"
+    },
+    "engines":{
+        "node":"*"
+    }
 }
