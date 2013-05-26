@@ -22,7 +22,6 @@ exports.get = function (req, res) {
     }
 
     var accept = req.headers["accept"] || "*/*";
-    console.log('http://nemo.sonarsource.org/api/resources');
     var options = {
         Host:requestURL.hostname,
         hostname:requestURL.hostname,
@@ -39,12 +38,9 @@ exports.get = function (req, res) {
 
     var request = http.request(options, function (response) {
         var body = '';
-        console.log('STATUS: ' + response.statusCode);
-        console.log('HEADERS: ' + JSON.stringify(response.headers));
         response.setEncoding('utf8');
 
         response.on('data', function (chunk) {
-            console.log('BODY: ' + chunk);
             body += chunk;
         });
 
