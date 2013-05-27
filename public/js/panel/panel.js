@@ -11,7 +11,6 @@ app.directive('panel', function() {
             function($scope, $element, calculateLayoutInRow) {
                 var allMonitors = $element.children();
                 var widthDivision = calculateLayoutInRow(allMonitors.length);
-                console.log("width division =", widthDivision)
 
                 angular.forEach(allMonitors, function(monitor, index){
                     monitor = $(monitor);
