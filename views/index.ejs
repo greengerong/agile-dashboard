@@ -7,8 +7,7 @@
 <body id="ng-app" ng-app="dashboardApp">
 
   <div ng-controller="dashboardCtr" class="container">
-    <h2><%= title %>(version:<%= version%>)</h2>
-    client config : {{dashboardConfig}}
+    <h2>{{dashboardConfig.project}}</h2>
 
     <div dashboard>
         <div jenkins=""></div>

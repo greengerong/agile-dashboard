@@ -3,7 +3,7 @@ var fs = require("fs");
 
 exports.index = function(req, res){
 	
-   res.render('index', { title: 'Project Dashboard',version:"1.0"});
+   res.render('index', { title: 'dashboard',version:"1.0"});
 };
 
 
