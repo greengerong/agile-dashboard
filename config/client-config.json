@@ -1,11 +1,15 @@
 {
-	"proxy":"/proxy/get",
-	"timer":5000,
-    "sonar": {
-	    "url":"http://nemo.sonarsource.org/api/resources",
-        "resource": "org.apache.openejb:openejb"
+    "proxy":"/proxy/get",
+    "timer":5000,
+    "sonar":{
+        "url":"http://nemo.sonarsource.org/api/resources",
+        "resource":"org.apache.openejb:openejb"
     },
-	"greenMonitor":{
-		"host":"http://127.0.0.1:8080"
-	}
+    "jenkins":{
+        "url":"http://alpina.unige.ch",
+        "jobs":["Engine", "Utilities", "AlPiNA.site"]
+    },
+    "greenMonitor":{
+        "host":"http://127.0.0.1:8080"
+    }
 }
