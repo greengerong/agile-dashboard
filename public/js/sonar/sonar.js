@@ -3,7 +3,7 @@ app.directive("sonar", ["proxy", "timer", "$timeout", function (proxy, timer, $t
         priority: 0,
         templateUrl: '/html/sonar/sonar.html',
         replace: true,
-        transclude: false,
+        transclude: true,
         restrict: 'EA',
         scope: true,
         controller: function ($scope) {
