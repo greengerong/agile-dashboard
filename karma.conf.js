@@ -16,6 +16,7 @@ files = [
   'public/js/3plib/**/*.js',
   'public/js/app.js',
   'public/js/**/*.js',
+  'test/3plib/**/*.js',
   'test/spec/**/*.js'
 ];
 

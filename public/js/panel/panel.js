@@ -1,7 +1,7 @@
 app.directive('panel', function() {
     return {
         priority: 900,
-        templateUrl: '/html/panels/panel.html',
+        templateUrl: '/html/panel/panel.html',
         replace: true,
         transclude: true,
         restrict: 'A',

@@ -1,6 +1,7 @@
 {
     "proxy":"/proxy/get",
-    "timer":5000,
+    "timer":25000,
+    "project":"Dashboard project",
     "sonar":{
         "url":"http://nemo.sonarsource.org/api/resources",
         "resource":"org.apache.openejb:openejb"

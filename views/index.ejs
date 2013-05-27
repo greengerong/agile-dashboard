@@ -7,38 +7,17 @@
 <body id="ng-app" ng-app="dashboardApp">
 
   <div ng-controller="dashboardCtr" class="container">
-    <h2><%= title %>(version:<%= version%>)</h2>
-    client config : {{dashboardConfig}}
-
+    <h2>{{dashboardConfig.project}}</h2>
     <div dashboard>
+        <div jenkins=""></div>
         <div panel>
-            <div sample></div>
-            <div sample></div>
+            <div sonar=""></div>
+            <div green-monitor=""></div>
+            <div jira=""></div>
         </div>
     </div>
-
-    <div green-monitor=""></div>
-
-    <div jenkins=""></div>
-    <div sonar=""></div>
-    <div jira=""></div>
-
   </div>
-<footer class="footer">
-    <div class="container">
-        <p>This project was contributed by [
-            <a href="https://github.com/greengerong" target="_blank">green gerong</a>],
-            [<a href="https://github.com/kolyjjj" target="_blank">kolyjjj</a>],
-            [<a href="https://github.com/yqsqq" target="_blank">yqsqq</a>],
-            [<a href="https://github.com/raoxunrong" target="_blank">raoxunrong </a>],
-            [<a href="https://github.com/ymeng-think" target="_blank">ymeng-think</a>],
-            [<a href="https://github.com/tingxiang" target="_blank">tingxiang</a>],
-            and project host on github [
-            <a href="https://github.com/greengerong/green-monitor" target="_blank">agile-dashboard</a>].
-            If you want you can change anything. we hope we can get your notify , but it up to you. </p>
-    </div>
-</footer>
-
+<%- include contributed.ejs %>
 <%- include script.ejs %>
 
   </body>
