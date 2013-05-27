@@ -15,6 +15,12 @@ describe('services test', function() {
 
             expect(widthDivision).toEqual([6, 6]);
         });
+
+        it('should enlarge top elements when count of monitors can NOT be divided extactly', function() {
+            var widthDivision = calculateLayoutInRow(5);
+
+            expect(widthDivision).toEqual([3, 3, 2, 2, 2]);
+        });
     });
 
 
