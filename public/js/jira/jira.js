@@ -1,0 +1,45 @@
+app.directive("jira", ["proxy", "timer", "$timeout", "$http", function (proxy, timer, $timeout, $http) {
+    return {
+        priority: 0,
+        templateUrl: '/html/jira/jira.html',
+        replace: true,
+        transclude: false,
+        restrict: 'EA',
+        scope: true,
+        controller: function ($scope) {
+            var jiraHost = $scope.dashboardConfig.jira.url;
+            
+            var jiraBlocks = $scope.dashboardConfig.jira.blocks;
+            var total = 0;
+
+            if(jiraBlocks == null)
+                return;
+            var countOfBlocks = jiraBlocks.length;
+            if(countOfBlocks == undefined || countOfBlocks == 0){
+                return;
+            }
+            
+
+      	     var fillCounts = function(){
+                $scope.rows=[];
+                angular.forEach(jiraBlocks, function(block, blockIndex){
+                var row = []
+                angular.forEach(block.tag, function(tagItem, index){
+                  proxy.get(
+                    jiraHost + "/rest/api/latest/search?jql=priority="+tagItem+"%20AND%20issuetype="+block.type+"&fields=''", 
+                    {Authorization: "Basic eGlhbmdfdGluZzp3ZWxjb21l"},
+                    function (a_index){
+                                return function(data){
+                                      row.push ({key : tagItem, value : data.total, order:a_index});
+                              };
+                            }(index)
+                      );
+                });
+                $scope.rows.push({key:block.type, value:row, rowIndex:blockIndex});
+              });
+        }
+
+            timer.start(fillCounts);
+        }
+    };
+}]);

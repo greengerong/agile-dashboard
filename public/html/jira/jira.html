@@ -1,0 +1,10 @@
+<div>
+    <h2>Jira</h2>
+    <div ng-repeat="row in rows | orderBy : 'rowIndex'">
+    	<hr/>
+    	<h3>{{row.key}}</h3>
+	    <div ng-repeat="item in row.value | orderBy : 'order'">
+	    	<div>{{item.key}}	{{item.value}} </div>
+		</div>
+	</div>
+</div>

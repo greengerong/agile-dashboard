@@ -11,5 +11,12 @@
     },
     "greenMonitor":{
         "host":"http://127.0.0.1:8080"
+    },
+    "jira":{
+        "url":"http://www.jira.cn",
+           "blocks": [
+              {"type":"bug","tag":["Critical", "Major", "Minor", "Trivial"]},
+              {"type":"story","tag":["Critical", "Major", "Minor", "Trivial"]}
+           ]
     }
 }
