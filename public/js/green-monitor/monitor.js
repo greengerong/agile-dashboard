@@ -1,6 +1,6 @@
 app.filter("status", function () {
     return function (status) {
-        return status ? "Passed" : "Failed";
+        return status ? "Success" : "Failure";
     };
 })
     .filter("timeParser", function () {
