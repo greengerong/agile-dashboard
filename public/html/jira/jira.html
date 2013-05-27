@@ -1,10 +1,15 @@
-<div>
+<div class="box well">
     <h2>Jira</h2>
+
     <div ng-repeat="row in rows | orderBy : 'rowIndex'">
-    	<hr/>
-    	<h3>{{row.key}}</h3>
-	    <div ng-repeat="item in row.value | orderBy : 'order'">
-	    	<div>{{item.key}}	{{item.value}} </div>
-		</div>
-	</div>
+        <hr/>
+        <h3>{{row.key}}</h3>
+        <table class="table table-bordered table-striped">
+            <tbody>
+            <tr>
+                <td ng-repeat="item in row.value | orderBy : 'order'">{{item.key}} {{item.value}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
