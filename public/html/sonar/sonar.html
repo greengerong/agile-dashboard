@@ -1,12 +1,10 @@
 <div class="well" >
-    <h1>Sonar</h1>
-    <hr/>
-	<div ng-repeat="metric in metrics">
+    <h2>Sonar</h2>
+	<div ng-repeat="metric in metrics" class="metricLine">
 			<span class="sonarMetricName">{{metric.name}}</span><span class="sonarMetricValue">{{metric.percentage}}</span>
-        <hr/>
 	</div>
 
 	<div>
-		<h1>Violations</h1>
+		<h2>Violations</h2>
 	</div>
 </div>
