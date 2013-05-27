@@ -1,7 +1,9 @@
 <div class="sonar well" >
-    <h2>Sonar Status</h2>
+    <h1>Sonar Status</h1>
+    <br/>
 	<div ng-repeat="metric in metrics">
-			<h2>{{metric.name}}</h2> <p>{{metric.percentage}}</p>
+			<span class="sonarMetricName">{{metric.name}}</span>&nbsp;&nbsp;&nbsp;{{metric.percentage}}
+        <hr/>
 	</div>
 
 	<div>

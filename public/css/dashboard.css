@@ -12,5 +12,9 @@
 
 .sonar {
     height: auto;
-    width: auto;
+    width: 100%;
+}
+
+.sonarMetricName{
+    font-size:24.5px;
 }
