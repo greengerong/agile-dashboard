@@ -27,11 +27,21 @@ var app = angular.module("dashboardApp", [])
     }]).
     factory("proxy", ["$http", "$window", "errorBoxService", function ($http, $window, errorBoxService) {
     return {
-        get:function (url, success, error) {
-            $http.get($window.dashboardConfig.proxy + "?url=" + encodeURIComponent(url)).
-                success(success).error(function (error) {
-                    errorBoxService.show(error, "error");
-                });
+        get:function () {
+
+            if (arguments.length === 2) {
+                var url = arguments[0], success = arguments[1];
+                $http.get($window.dashboardConfig.proxy + "?url=" + encodeURIComponent(url)).
+                    success(success).error(function (error) {
+                        errorBoxService.show(error, "error");
+                    });
+            } else if (arguments.length === 3) {
+                var url = arguments[0], config = arguments[1], success = arguments[2];
+                $http.get($window.dashboardConfig.proxy + "?url=" + encodeURIComponent(url), config).
+                    success(success).error(function (error) {
+                        errorBoxService.show(error, "error");
+                    });
+            }
         }
     };
 }]).factory("timer", ["$window", function ($window) {
@@ -41,11 +51,11 @@ var app = angular.module("dashboardApp", [])
             $window.setInterval(callback, $window.dashboardConfig.timer || 1000);
         }
     };
-}]).filter("duration", function(){
-        var calculateDuration = function(inuput){
+}]).filter("duration", function () {
+        var calculateDuration = function (inuput) {
             var durationSec = parseInt(inuput, 10);
             var minutes = parseInt(durationSec / 60000, 10);
-            var secs = parseInt((durationSec%60000)/1000, 10);
+            var secs = parseInt((durationSec % 60000) / 1000, 10);
 
             return minutes + " mins, " + secs + " secs";
         };
