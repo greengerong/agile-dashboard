@@ -6,8 +6,16 @@ app.directive('panel', function() {
         transclude: true,
         restrict: 'A',
         scope: true,
-        controller: function($scope, $element, $attrs, $transclude) {
 
-        }
+        controller: ['$scope', '$element', 'calculateLayoutInRow',
+            function($scope, $element, calculateLayoutInRow) {
+                var allMonitors = $element.children();
+                var widthDivision = calculateLayoutInRow(allMonitors.length);
+
+                angular.forEach(allMonitors, function(monitor, index){
+                    monitor = $(monitor);
+                    monitor.addClass("span" + widthDivision[index]);
+                });
+        }]
     };
 });
