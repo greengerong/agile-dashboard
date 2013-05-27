@@ -14,7 +14,7 @@ var app = angular.module("dashboardApp", [])
                     }
                     $container.html('<div class="box alert alert-block ' + messageBoxColor[type] + '">' +
                             '<button class="close" type="button">×</button>' +
-                            '<h4 class="alert-heading">' + title + '</h4>' +
+                            '<h4 class="alert-heading">' + (title?title: "Unknow exception.") + '</h4>' +
                             '</div>').find("button").bind("click", function () {
                             $container.remove();
                         });

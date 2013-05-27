@@ -49,13 +49,13 @@ exports.get = function (req, res) {
             res.send(body);
         });
 
-        response.on('error', function (eror) {
-            res.send(eror.message, 500);
+        response.on('error', function (e) {
+            res.send(e.message, 500);
         });
     });
 
     request.on('error', function (e) {
-        res.send(eror.message, 500);
+        res.send(e.message, 500);
     });
     request.end();
 };
