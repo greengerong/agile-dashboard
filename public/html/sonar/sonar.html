@@ -6,5 +6,11 @@
 
 	<div>
 		<h2>Violations</h2>
+        <table>
+            <tr>
+                <td ng-repeat="violation in violations"><span class="sonarMetricName">{{violation.title}}</span>
+                    <p class="sonarMetricValue">{{violation.value}}</p></td>
+            </tr>
+        </table>
 	</div>
 </div>
