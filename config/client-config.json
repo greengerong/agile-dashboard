@@ -15,9 +15,11 @@
     },
     "jira":{
         "url":"http://www.jira.cn",
+        "user":"xiang_ting",
+        "password":"welcome",
            "blocks": [
-              {"type":"bug","tag":["Critical", "Major", "Minor", "Trivial"]},
-              {"type":"story","tag":["Critical", "Major", "Minor", "Trivial"]}
+              {"type":"Bug","tag":["Critical", "Major", "Minor", "Trivial"]},
+              {"type":"Story","tag":["Critical", "Major", "Minor", "Trivial"]}
            ]
     }
 }

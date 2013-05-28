@@ -9,7 +9,7 @@ app.filter("sum", ["underscore", function (underscore) {
             return memo + val;
         }, 0);
     };
-}]).directive("jira", ["proxy", "timer", "$timeout", "$http", function (proxy, timer, $timeout, $http) {
+}]).directive("jira", ["proxy", "timer", "$timeout", "$http", "$window", function (proxy, timer, $timeout, $http, $window) {
     return {
         priority:0,
         templateUrl:'/html/jira/jira.html',
@@ -30,7 +30,12 @@ app.filter("sum", ["underscore", function (underscore) {
                 return;
             }
 
+            var getBase64AuthInfo = function () {
+                var user = $scope.dashboardConfig.jira.user;
+                var password = $scope.dashboardConfig.jira.password;
 
+                return $window.btoa(user+":"+password);
+            }
             var fillCounts = function () {
                 $scope.rows = [];
                 angular.forEach(jiraBlocks, function (block, blockIndex) {
@@ -38,7 +43,7 @@ app.filter("sum", ["underscore", function (underscore) {
                     angular.forEach(block.tag, function (tagItem, index) {
                         proxy.get(
                             jiraHost + "/rest/api/latest/search?jql=priority=" + tagItem + "%20AND%20issuetype=" + block.type + "&fields=''",
-                            {Authorization:"Basic eGlhbmdfdGluZzp3ZWxjb21l"},
+                            {Authorization:"Basic " + getBase64AuthInfo()},
                             function (a_index) {
                                 return function (data) {
                                     row.push({key:tagItem, value:data.total, order:a_index});
