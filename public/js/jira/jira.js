@@ -9,7 +9,7 @@ app.filter("sum", ["underscore", function (underscore) {
             return memo + val;
         }, 0);
     };
-}]).directive("jira", ["proxy", "timer", "$timeout", "$http", "$window", function (proxy, timer, $timeout, $http, $window) {
+}]).directive("jira", ["proxy", "timer", "$timeout", "$http", function (proxy, timer, $timeout, $http) {
     return {
         priority:0,
         templateUrl:'/html/jira/jira.html',
@@ -34,8 +34,10 @@ app.filter("sum", ["underscore", function (underscore) {
                 var user = $scope.dashboardConfig.jira.user;
                 var password = $scope.dashboardConfig.jira.password;
 
-                return $window.btoa(user+":"+password);
+                return jQuery.base64.encode(user+":"+password);
             }
+
+            console.log(getBase64AuthInfo());
             var fillCounts = function () {
                 $scope.rows = [];
                 angular.forEach(jiraBlocks, function (block, blockIndex) {
