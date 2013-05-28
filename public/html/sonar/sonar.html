@@ -8,10 +8,14 @@
     </table>
 
     <h3>Violations</h3>
-    <table>
+    <table class="table table-bordered table-striped">
         <tr>
             <td ng-repeat="violation in violations">
                 <span class="sonarMetricName">{{violation.title}}</span>
+            </td>
+        </tr>
+        <tr>
+            <td ng-repeat="violation in violations">
                 <p class="sonarMetricValue">{{violation.value}}</p>
             </td>
         </tr>

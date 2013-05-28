@@ -9,9 +9,9 @@
 }
 
 .sonarMetricValue{
-    font-size: 2.0em;
-    color: #797878;
-    text-align: center;
+    font-size: 1.5em;
+    /*color: #797878;*/
+    text-align: left;
 }
 
 .metricLine{
