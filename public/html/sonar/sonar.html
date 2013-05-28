@@ -1,16 +1,19 @@
-<div class="well" >
+<div class="well">
     <h2>Sonar</h2>
-	<div ng-repeat="metric in metrics" class="metricLine">
-			<span class="sonarMetricName">{{metric.name}}</span><span class="sonarMetricValue">{{metric.percentage}}</span>
-	</div>
+    <table>
+        <tr ng-repeat="metric in metrics" class="metricLine">
+            <td><span class="sonarMetricName">{{metric.name}}</span></td>
+            <td><span class="sonarMetricValue">{{metric.percentage}}</span></td>
+        </tr>
+    </table>
 
-	<div>
-		<h3>Violations</h3>
-        <table>
-            <tr>
-                <td ng-repeat="violation in violations"><span class="sonarMetricName">{{violation.title}}</span>
-                    <p class="sonarMetricValue">{{violation.value}}</p></td>
-            </tr>
-        </table>
-	</div>
+    <h3>Violations</h3>
+    <table>
+        <tr>
+            <td ng-repeat="violation in violations">
+                <span class="sonarMetricName">{{violation.title}}</span>
+                <p class="sonarMetricValue">{{violation.value}}</p>
+            </td>
+        </tr>
+    </table>
 </div>
