@@ -44,7 +44,7 @@ app.filter("sum", ["underscore", function (underscore) {
                     var row = []
                     angular.forEach(block.tag, function (tagItem, index) {
                         proxy.get(
-                            jiraHost + "/rest/api/latest/search?jql=priority=" + tagItem + "%20AND%20issuetype=" + block.type + "&fields=''",
+                            jiraHost + "/rest/api/latest/search?jql=priority=" + tagItem + "%20AND%20issuetype=" + block.type + "%20AND%20status%20NOT%20IN%20(closed)&fields=''",
                             {Authorization:"Basic " + getBase64AuthInfo()},
                             function (a_index) {
                                 return function (data) {
