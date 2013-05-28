@@ -37,7 +37,6 @@ app.filter("sum", ["underscore", function (underscore) {
                 return jQuery.base64.encode(user+":"+password);
             }
 
-            console.log(getBase64AuthInfo());
             var fillCounts = function () {
                 $scope.rows = [];
                 angular.forEach(jiraBlocks, function (block, blockIndex) {

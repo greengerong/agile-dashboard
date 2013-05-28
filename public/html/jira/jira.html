@@ -1,14 +1,13 @@
-<div class="box well">
+<div class="box well" style="height: 418px;">
     <h2>Jira</h2>
 
     <div ng-repeat="row in rows | orderBy : 'rowIndex'">
         <hr/>
-        <h3>{{row.key}}</h3>
+        <h3>{{row.key}}<span style="float: right;font-size: 0.8em">Total {{row.value | sum : "value"}}</span></h3>
         <table class="table table-bordered table-striped">
             <tbody>
             <tr>
-                <td ng-repeat="item in row.value | orderBy : 'order'">{{item.key}} {{item.value}}</td>
-                <td>Total {{row.value | sum : "value"}}</td>
+                <td style="font-size: 1.5em;"ng-repeat="item in row.value | orderBy : 'order'">{{item.key}} <span style="color: #797878">{{item.value}}</span></td>
             </tr>
             </tbody>
         </table>

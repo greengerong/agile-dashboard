@@ -1,6 +1,6 @@
 {
     "proxy":"/proxy/get",
-    "timer":25000,
+    "timer":250000,
     "project":"Dashboard project",
     "sonar":{
         "url":"http://nemo.sonarsource.org/api/resources",
