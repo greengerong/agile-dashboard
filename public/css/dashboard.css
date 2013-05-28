@@ -5,12 +5,11 @@
 
 .sonarMetricName{
     font-size:1.5em;
-    margin-right: 20px;
+    margin-right: 25px;
 }
 
 .sonarMetricValue{
     font-size: 2.0em;
-    margin-left: 10px;
     color: #797878;
     text-align: center;
 }
