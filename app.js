@@ -18,16 +18,11 @@ app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(function clientErrorHandler(err, req, res, next) {
     if (req.xhr) {
-        res.send(500, { error:'Something blew up!' });
+        res.send(500, { error:err });
     } else {
         next(err);
     }
 });
-
-// development only
-if ('development' == app.get('env')) {
-    app.use(express.errorHandler());
-}
 
 app.get('/', routes.index);
 app.get('/proxy/get', proxy.get);
