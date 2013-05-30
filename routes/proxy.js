@@ -1,7 +1,18 @@
 var http = require('http'), url = require("url");
-var querystring = require('querystring');
 
 global.cookies = global.cookie || {};
+
+var getCookie = function (hostname) {
+    hostname = hostname || requestURL.hostname;
+    return global.cookies[hostname] || "";
+}
+
+var storeCookie = function (response, hostname) {
+    var cookie = response.headers["set-cookie"];
+    if (cookie) {
+        global.cookies[hostname] = cookie;
+    }
+}
 
 exports.get = function (req, res) {
 
@@ -23,17 +34,7 @@ exports.get = function (req, res) {
     if (requestURL.port) {
         port = requestURL.port;
     }
-    function getCookie(hostname) {
-        hostname = hostname || requestURL.hostname;
-        return global.cookies[hostname] || "";
-    }
 
-    function storeCookie(response, hostname) {
-        var cookie = response.headers["set-cookie"];
-        if (cookie) {
-            global.cookies[hostname] = cookie;
-        }
-    }
 
     var accept = req.headers["accept"] || "*/*";
     var options = {
@@ -75,8 +76,7 @@ exports.get = function (req, res) {
     request.end();
 };
 
-exports.post = function (req, res) {
-
+var extractedUrlInfo = function (req) {
     var params = url.parse(req.url, true).query;
 
     var path = '';
@@ -95,39 +95,44 @@ exports.post = function (req, res) {
     if (requestURL.port) {
         port = requestURL.port;
     }
+    return {path:path, requestURL:requestURL, port:port};
+};
 
-    function getCookie(hostname) {
-        return global.cookies[hostname] || "";
-    }
+var getRequestOptions = function (req, requestData) {
+    var urlInfo = extractedUrlInfo(req);
 
-    function storeCookie(response, hostname) {
-        var cookie = response.headers["set-cookie"];
-        if (cookie) {
-            global.cookies[hostname] = cookie;
-        }
-        console.log(cookie, "------------");
-    }
-
+    var hostName = urlInfo.requestURL.hostname;
     var accept = req.headers["accept"] || "*/*";
-    var post_data = JSON.stringify(req.body);
-    console.log(post_data);
+    var contentType = req.headers["Content-Length"] || "application/json";
+
     var options = {
-        Host:requestURL.hostname,
-        hostname:requestURL.hostname,
-        port:port,
-        path:path,
+        Host:hostName,
+        hostname:hostName,
+        port:urlInfo.port,
+        path:urlInfo.path,
         method:'POST',
-        Cookie:getCookie(requestURL.hostname),
+        Cookie:getCookie(hostName),
         headers:{
             'Accept':accept,
             'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT5.0)',
             'Accept-Language':'en-us',
             'Accept-Charset':'utf-8;q=0.7,*;q=0.7',
-            'Content-Type':"application/json",
-            'Content-Length':post_data.length
+            'Content-Type':contentType
         }
     };
 
+    if (requestData) {
+        options.headers['Content-Length'] = requestData.length;
+    }
+    return options;
+};
+
+var proxyRequest = function (req, res) {
+    var requestData;
+    if (req.body) {
+        requestData = JSON.stringify(req.body);
+    }
+    var options = getRequestOptions(req, requestData);
     var request = http.request(options, function (response) {
         var body = '';
         response.setEncoding('utf8');
@@ -137,7 +142,7 @@ exports.post = function (req, res) {
         });
 
         response.on('end', function () {
-            storeCookie(response, requestURL.hostname);
+            storeCookie(response, options.hostName);
             res.send(body);
         });
 
@@ -150,6 +155,12 @@ exports.post = function (req, res) {
         res.send(e.message, 500);
     });
 
-    request.write(post_data);
+    if (requestData) {
+        request.write(requestData);
+    }
     request.end();
+};
+
+exports.post = function (req, res) {
+    proxyRequest(req, res);
 };
