@@ -1,5 +1,7 @@
 var http = require('http'), url = require("url");
 
+global.cookies = global.cookie || {};
+
 exports.get = function (req, res) {
 
     var params = url.parse(req.url, true).query;
@@ -21,6 +23,17 @@ exports.get = function (req, res) {
         port = requestURL.port;
     }
 
+    function getCookie() {
+        return global.cookies[requestURL.hostname] || "";
+    }
+
+    function storeCookie(response) {
+        var cookie = response.headers["set-cookie"];
+        if (cookie) {
+            global.cookies[requestURL.hostname] = cookie;
+        }
+    }
+
     var accept = req.headers["accept"] || "*/*";
     var options = {
         Host:requestURL.hostname,
@@ -28,6 +41,7 @@ exports.get = function (req, res) {
         port:port,
         path:path,
         method:'GET',
+        Cookie:getCookie(),
         headers:{
             'Accept':accept,
             'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT5.0)',
@@ -45,6 +59,7 @@ exports.get = function (req, res) {
         });
 
         response.on('end', function () {
+            storeCookie(response);
             res.send(body);
         });
 
