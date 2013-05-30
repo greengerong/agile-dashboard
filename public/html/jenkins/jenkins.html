@@ -1,22 +1,22 @@
 <div class="well">
     <h2 style="margin-left:25px">Jenkins Status</h2>
     <ul id="projectsTable" style="font-size: 0.52em;">
-            <li style="width: {{newCss.width}}; height: {{newCss.height}}; margin: {{newCss.margin}}; opacity: 1; display: inline-block; overflow: hidden;"
-                class="project" ng-repeat="jobData in jobsData">
-                <table class="innerTable">
-                    <tbody>
-                    <tr>
-                        <td class="projectName {{jobData.result | lowercase}}-state">
-                            <span>{{jobData.fullDisplayName}}</span>
-                            <div class="inlineInfo">
-                                {{jobData.result}}
-                                <span> ~ {{jobData.duration | duration}}</span>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </li>
+        <li style="width: {{newCss.width}}; height: {{newCss.height}}; margin: {{newCss.margin}}; opacity: 1; display: inline-block; overflow: hidden;"
+            class="project" ng-repeat="jobData in jobsData | notEmpty">
+            <table class="innerTable">
+                <tbody>
+                <tr>
+                    <td class="projectName {{jobData.result | lowercase}}-state">
+                        <span>{{jobData.fullDisplayName}}</span>
+
+                        <div class="inlineInfo">
+                            {{jobData.result}}
+                            <span> ~ {{jobData.duration | duration}}</span>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </li>
     </ul>
 </div>
-

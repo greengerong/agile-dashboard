@@ -10,12 +10,12 @@ app.directive("jenkins", ["proxy", "timer", "$timeout", function (proxy, timer, 
             var jenkinsUrl = $scope.dashboardConfig.jenkins.url;
             var jenkinsJobs = $scope.dashboardConfig.jenkins.jobs;
 
-            $scope.jobsData = {};
+            $scope.jobsData = [];
 
-            if(jenkinsJobs == null)
+            if (jenkinsJobs == null)
                 return;
             var countOfJobs = jenkinsJobs.length;
-            if(countOfJobs == undefined || countOfJobs == 0){
+            if (countOfJobs == undefined || countOfJobs == 0) {
                 return;
             }
             var projectsByRow = Math.ceil(Math.sqrt(countOfJobs));
@@ -27,18 +27,20 @@ app.directive("jenkins", ["proxy", "timer", "$timeout", function (proxy, timer, 
                 margin: (1 / (rows * 2)) + '% ' + (1 / (projectsByRow * 2)) + '%'
             };
 
-            var handleJob = function (jobData) {
-                var jobName = jobData.fullDisplayName.substring(0, jobData.fullDisplayName.indexOf('#')).trim();
-                $scope.jobsData[jobName] = jobData;
+            var handleJob = function (jobData, index) {
+                $scope.jobsData[index] = (jobData);
             };
 
             var getJenkinsJobs = function () {
-                for (var jobIndex in jenkinsJobs) {
-                    proxy.get(jenkinsUrl + '/jenkins/job/' + jenkinsJobs[jobIndex] + '/lastBuild/api/json?pretty=true', function (jobData) {
-                        $timeout(function () {
-                            handleJob(jobData);
-                        });
-                    });
+                for (var jobIndex = 0; jobIndex < jenkinsJobs.length; jobIndex++) {
+                    proxy.get(jenkinsUrl + '/jenkins/job/' + jenkinsJobs[jobIndex] + '/lastBuild/api/json?pretty=true',
+                        function (index) {
+                            return function (jobData) {
+                                $timeout(function () {
+                                    handleJob(jobData, index);
+                                });
+                            };
+                        }(jobIndex));
                 }
             };
             timer.start(getJenkinsJobs);
