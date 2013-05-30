@@ -16,6 +16,13 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(function clientErrorHandler(err, req, res, next) {
+    if (req.xhr) {
+        res.send(500, { error:'Something blew up!' });
+    } else {
+        next(err);
+    }
+});
 
 // development only
 if ('development' == app.get('env')) {
