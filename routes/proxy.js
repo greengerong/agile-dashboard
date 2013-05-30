@@ -22,7 +22,6 @@ exports.get = function (req, res) {
     }
 
     var accept = req.headers["accept"] || "*/*";
-    console.log('http://nemo.sonarsource.org/api/resources');
     var options = {
         Host:requestURL.hostname,
         hostname:requestURL.hostname,

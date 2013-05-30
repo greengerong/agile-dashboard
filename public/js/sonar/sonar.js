@@ -49,9 +49,6 @@ app.directive("sonar", ["proxy", "timer", "$timeout", function (proxy, timer, $t
             var sonarRequestUrlForMetrics = sonarRequestUrlWithResource + '&metrics=' + buildParameters(metricsKeyNames);
             var sonarRequestUrlForViolations = sonarRequestUrlWithResource + '&metrics=' + buildParameters(violationKeys);
 
-            console.log(sonarRequestUrlForViolations);
-
-
             var getSonarInfo = function () {
                 proxy.get(sonarRequestUrlForMetrics, function (data) {
                     $timeout(function () {
