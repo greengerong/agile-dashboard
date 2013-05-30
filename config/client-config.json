@@ -1,5 +1,5 @@
 {
-    "proxy":"/proxy/get",
+    "proxy":"/proxy/",
     "timer":250000,
     "project":"Dashboard project",
     "sonar":{

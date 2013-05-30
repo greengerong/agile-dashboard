@@ -19,44 +19,47 @@ app.filter("sum", ["underscore", function (underscore) {
         scope:true,
         controller:function ($scope) {
             var jiraHost = $scope.dashboardConfig.jira.url;
-
             var jiraBlocks = $scope.dashboardConfig.jira.blocks;
-            var total = 0;
+            var username = $scope.dashboardConfig.jira.user;
+            var password = $scope.dashboardConfig.jira.password;
 
-            if (jiraBlocks == null)
-                return;
-            var countOfBlocks = jiraBlocks.length;
-            if (countOfBlocks == undefined || countOfBlocks == 0) {
+            if (!jiraBlocks) {
                 return;
             }
 
-            var getBase64AuthInfo = function () {
-                var user = $scope.dashboardConfig.jira.user;
-                var password = $scope.dashboardConfig.jira.password;
+            var getJiraInfo = function () {
+                var fillJiraInfo = function () {
+                    $scope.rows = [];
+                    angular.forEach(jiraBlocks, function (block, blockIndex) {
+                        var getDetails = function () {
+                            angular.forEach(block.tag, function (tagItem, index) {
+                                proxy.get(
+                                    jiraHost + "/rest/api/latest/search?jql=priority=" + tagItem + "%20AND%20issuetype=" + block.type + "%20AND%20status%20NOT%20IN%20(closed)&fields=''",
+                                    function (a_index) {
+                                        return function (data) {
+                                            row.push({key:tagItem, value:data.total, order:a_index});
+                                        };
+                                    }(index)
+                                );
+                            });
+                        }
 
-                return jQuery.base64.encode(user+":"+password);
-            }
-
-            var fillCounts = function () {
-                $scope.rows = [];
-                angular.forEach(jiraBlocks, function (block, blockIndex) {
-                    var row = []
-                    angular.forEach(block.tag, function (tagItem, index) {
-                        proxy.get(
-                            jiraHost + "/rest/api/latest/search?jql=priority=" + tagItem + "%20AND%20issuetype=" + block.type + "%20AND%20status%20NOT%20IN%20(closed)&fields=''",
-                            {Authorization:"Basic " + getBase64AuthInfo()},
-                            function (a_index) {
-                                return function (data) {
-                                    row.push({key:tagItem, value:data.total, order:a_index});
-                                };
-                            }(index)
-                        );
+                        var row = []
+                        getDetails();
+                        $scope.rows.push({key:block.type, value:row, rowIndex:blockIndex});
                     });
-                    $scope.rows.push({key:block.type, value:row, rowIndex:blockIndex});
-                });
+                }
+
+                timer.start(fillJiraInfo);
             }
 
-            timer.start(fillCounts);
+
+            proxy.post(jiraHost + "/rest/auth/latest/session",
+                {username:username, password:password},
+                function (data) {
+                    getJiraInfo();
+                });
+
         }
     };
 }]);

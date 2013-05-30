@@ -16,16 +16,17 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(function clientErrorHandler(err, req, res, next) {
-    if (req.xhr) {
-        res.send(500, { error:err });
-    } else {
-        next(err);
-    }
-});
+//app.use(function clientErrorHandler(err, req, res, next) {
+//    if (req.xhr) {
+//        res.send(500, { error:err });
+//    } else {
+//        next(err);
+//    }
+//});
 
 app.get('/', routes.index);
 app.get('/proxy/get', proxy.get);
+app.post('/proxy/post', proxy.post);
 app.get('/config', routes.config);
 
 http.createServer(app).listen(app.get('port'), function () {
