@@ -2,7 +2,7 @@ var http = require('http'), url = require("url");
 
 global.cookies = global.cookie || {};
 
-function Proxy() {
+function Proxyer(req, res, method) {
     var getCookie = function (hostname) {
         return global.cookies[hostname] || "";
     }
@@ -68,7 +68,7 @@ function Proxy() {
         return options;
     };
 
-    this.proxy = function (req, res, method) {
+    this.proxy = function () {
         var requestData;
         if (method.toUpperCase() !== "GET" && req.body) {
             requestData = JSON.stringify(req.body);
@@ -104,9 +104,9 @@ function Proxy() {
 }
 
 exports.get = function (req, res) {
-    new Proxy().proxy(req, res, "GET");
+    new Proxyer(req, res, "GET").proxy();
 };
 
 exports.post = function (req, res) {
-    new Proxy().proxy(req, res, "POST");
+    new Proxyer(req, res, "POST").proxy();
 };
