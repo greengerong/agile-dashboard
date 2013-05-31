@@ -65,7 +65,7 @@ function Proxyer(req, res, method) {
             options.headers['Content-Length'] = requestData.length;
         }
 
-        return options;
+        return {options:options, hostName:hostName};
     };
 
     this.proxy = function () {
@@ -73,8 +73,8 @@ function Proxyer(req, res, method) {
         if (method.toUpperCase() !== "GET" && req.body) {
             requestData = JSON.stringify(req.body);
         }
-        var options = getRequestOptions(req, requestData, method);
-        var request = http.request(options, function (response) {
+        var opts = getRequestOptions(req, requestData, method);
+        var request = http.request(opts.options, function (response) {
             var body = '';
             response.setEncoding('utf8');
 
@@ -83,7 +83,7 @@ function Proxyer(req, res, method) {
             });
 
             response.on('end', function () {
-                storeCookie(response, options.hostName);
+                storeCookie(response, opts.hostName);
                 res.send(body);
             });
 
