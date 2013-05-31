@@ -1,12 +1,9 @@
-
 .monitor-right {
     float: right;
     padding: 4px;
     font-size: 17.5px;
 }
 
-.monitor-item {
-    /*-webkit-border-radius: 10px;*/
-    /*border-radius: 10px;*/
-    /*-moz-border-radius: 10px;*/
+.container {
+    width: 98%;
 }

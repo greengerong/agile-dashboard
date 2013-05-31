@@ -11,11 +11,13 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(express.favicon(__dirname + "public/images/favicon.ico"));
-app.use(express.logger('prd'));
+app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.cookieParser());
+app.use(express.cookieSession());
 app.use(function clientErrorHandler(err, req, res, next) {
     if (req.xhr) {
         res.send(500, { error:err });

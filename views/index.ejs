@@ -1,26 +1,33 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %>(version:<%= version%>)</title>
-  <%- include head.ejs %>
-  </head>
+<head>
+    <title>
+        < %= title %>(version:<%= version%>)
+    </title>
+    <%- include head.ejs %>
+</head>
 <body id="ng-app" ng-app="dashboardApp">
 
-  <div ng-controller="dashboardCtr" class="container">
+<div ng-controller="dashboardCtr" class="container">
     <h1>{{dashboardConfig.project}}</h1>
-    <div dashboard>
+
+    <div class="row-fluid">
         <div jenkins=""></div>
-        <div panel>
-            <div sonar=""></div>
-            <div jira=""></div>
+        <div class="row-fluid">
+            <div class="span6">
+                <div sonar=""></div>
+            </div>
+            <div class="span6">
+                <div jira=""></div>
+            </div>
         </div>
-        <div panel>
+        <div class="row-fluid">
             <div green-monitor=""></div>
         </div>
     </div>
-  </div>
+</div>
 <%- include contributed.ejs %>
 <%- include script.ejs %>
 
-  </body>
+</body>
 </html>
